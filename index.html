@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <!-- Adiciona a parte de estilos em cc -->
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <!--Div para o input do nome e valor dos produtos
+        Junto de seus respectivos botões-->
+    <div class="dadosInput">
+        <label for="produto">INSIRA O PRODUTO: </label>
+        <input type="text" id="produto" placeholder="Nome do produto">
+        <label for="valor">INSIRA O VALOR:</label>
+        <input type="number" id ="valor" placeholder="Valor do produto">
+        <button onclick="venda()" class="buttonV">+</button>
+        <button onclick="pagamento()" class="buttonP">-</button>
+    </div>
+    
+    <!-- Tabela somente para os títulos pré-definidos-->
+    <table id="tabela-produtos">
+        <tr>
+            <th>
+                Produto
+            </th>
+            <th>
+                Valor
+            </th>
+            <th>
+                Data
+            </th>
+            <th>
+                Selecionar
+            </th>
+    </table>
+    
+    <!-- Tabela total vazia pois receberá tudo via javascript-->
+    <table id="total" class="tabelaTotal">
+    </table>
+
+    <!-- Tabela com dois botões para facilitar aderência na tela-->
+    <table style="width: 10%;">
+        <tr>
+            <th style="border: none; background-color: transparent; padding: 0; margin-right: 10px;">
+                <input type="image" src="red_xpng.png" alt="Botão de Imagem" onclick="deletarVenda()" class="xdeletar">
+                <p style="font-weight: lighter;">EXCLUIR</p>
+            </th>
+            <th style="border: none; background-color: transparent; padding: 0;">
+                <input type="image" src="green_check.png" alt="Botão de Imagem" onclick="salvarTabelas()" class="xdeletar">
+                <p style="font-weight: lighter;">SALVAR</p>
+            </th>
+        </tr>
+    </table>
+    <!-- Chama os scripts para a tela -->
+    <script src="script.js"></script>
+</body>
+</html>
