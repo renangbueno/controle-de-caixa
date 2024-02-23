@@ -1,4 +1,4 @@
-#Controle de Caixa
+Solução Web Simples para Fluxo de Caixa
 
 Este projeto é uma aplicação web simples desenvolvida em HTML, CSS e JavaScript que oferece funcionalidades para controle de caixa. A aplicação permite o registro de vendas e despesas, rastreando o total de vendas, o maior valor de venda, o maior valor de despesa e outras estatísticas relevantes. Além disso, o projeto utiliza armazenamento local (LocalStorage) para persistir dados, permitindo que as informações sejam salvas localmente no navegador do usuário.
 
@@ -8,9 +8,9 @@ Funcionalidades
 * Controle de Tabelas: É possível excluir entradas específicas e salvar o estado atual das tabelas localmente.
 
 Tecnologias Utilizadas
-HTML: Utilizado para estruturação do conteúdo da aplicação.
-CSS: Estilização para criar uma interface agradável e responsiva.
-JavaScript: Implementação da lógica de controle de caixa, manipulação do DOM e interação com o armazenamento local.
+- HTML: Utilizado para estruturação do conteúdo da aplicação.
+- CSS: Estilização para criar uma interface agradável e responsiva.
+- JavaScript: Implementação da lógica de controle de caixa, manipulação do DOM e interação com o armazenamento local.
 
 Instruções de Uso
 1. Clone o repositório para o seu ambiente local.
