@@ -21,7 +21,7 @@ function venda(){
     vendas++;
 
         //Se os inputs estiverem vazios não prossegue
-        if (novoProd == "" && document.getElementById('valor').value == ""){
+        if (novoProd == "" || document.getElementById('valor').value == 0){
             alert("PREENCHA OS CAMPOS!");
         }
         else{
@@ -46,22 +46,28 @@ function pagamento(){
     // Pega os dados dos inputs
     var novoProd = document.getElementById("produto").value;
     var valor = parseFloat(document.getElementById("valor").value);
-    // Diminui valor do total
-    total -= valor;
-    // Aumenta 1 venda para controle
-    vendas++;
 
-    novaLinha = "<tr><td style='text-transform: uppercase;'>" + novoProd + "</td><td>"+ "-R$" + valor +"</td><td>"+ today.toLocaleDateString() +"</td><td><input type='checkbox' class='delete-checkbox'></td></tr>";
-    document.getElementById("tabela-produtos").innerHTML += novaLinha;
-    if (maiorDespesa<valor){
-        maiorDespesa=valor;
+    if (novoProd == "" || document.getElementById('valor').value == 0){
+        alert("PREENCHA OS CAMPOS!");
     }
-    novoTotal = "<tr><th colspan='4'>TOTAL</th></tr><tr><tr><th>Vendas:</th><td><b>"+ vendas +"</b></td><tr><th>Lucro:</th><td id='lucro123'>"+ "<b>R$ " + total.toFixed(2) + "</b></td></tr><tr><th>Maior venda:</th><td> <b>R$"+ maiorValor +"</b></td></tr><tr><th>Maior Despesa:</th><td><b>R$"+ maiorDespesa +"</b></td></tr>";
-    document.getElementById("total").innerHTML = novoTotal;
+    else{
+        // Diminui valor do total
+        total -= valor;
+        // Aumenta 1 venda para controle
+        vendas++;
 
-    //Limpa os inputs
-    document.getElementById("produto").value = '';
-    document.getElementById("valor").value = '';
+        novaLinha = "<tr><td style='text-transform: uppercase;'>" + novoProd + "</td><td>"+ "-R$" + valor +"</td><td>"+ today.toLocaleDateString() +"</td><td><input type='checkbox' class='delete-checkbox'></td></tr>";
+        document.getElementById("tabela-produtos").innerHTML += novaLinha;
+        if (maiorDespesa<valor){
+            maiorDespesa=valor;
+        }
+        novoTotal = "<tr><th colspan='4'>TOTAL</th></tr><tr><tr><th>Vendas:</th><td><b>"+ vendas +"</b></td><tr><th>Lucro:</th><td id='lucro123'>"+ "<b>R$ " + total.toFixed(2) + "</b></td></tr><tr><th>Maior venda:</th><td> <b>R$"+ maiorValor +"</b></td></tr><tr><th>Maior Despesa:</th><td><b>R$"+ maiorDespesa +"</b></td></tr>";
+        document.getElementById("total").innerHTML = novoTotal;
+
+        //Limpa os inputs
+        document.getElementById("produto").value = '';
+        document.getElementById("valor").value = '';
+    }
     
 }
 
