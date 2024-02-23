@@ -1,5 +1,6 @@
 window.onload = function() {
     carregarTabelas();
+    salvarTabelas();
 };
 
 const today = new Date();
@@ -14,15 +15,16 @@ var vendas = parseInt(localStorage.getItem('vendas')) || 0;
 function venda(){
     var novoProd = document.getElementById("produto").value;
     var valor = parseFloat(document.getElementById("valor").value);
-
     var novaLinha = "";
     var novoTotal = "";
+    // Adiciona mais 1 venda
     vendas++;
-        if (novoProd == "" || document.getElementById('valor').value == ""){
+
+        //Se os inputs estiverem vazios não prossegue
+        if (novoProd == "" && document.getElementById('valor').value == ""){
             alert("PREENCHA OS CAMPOS!");
         }
         else{
-            cont +=1;
             total += valor;
             novaLinha = "<tr><td style='text-transform: uppercase;'>" + novoProd + "</td><td>"+ "+R$" + valor +"</td><td>"+ today.toLocaleDateString() +"</td><td><input type='checkbox' class='delete-checkbox'></td></tr>";
             document.getElementById("tabela-produtos").innerHTML += novaLinha;
@@ -41,18 +43,20 @@ function venda(){
 function pagamento(){
     var novaLinha = "";
     var novoTotal = "";
-    cont +=1;
-    var checkboxes = document.getElementsByClassName("delete-checkbox");
-     
-    novoProd = document.getElementById("produto").value;
-    valor = parseFloat(document.getElementById("valor").value);
+    // Pega os dados dos inputs
+    var novoProd = document.getElementById("produto").value;
+    var valor = parseFloat(document.getElementById("valor").value);
+    // Diminui valor do total
     total -= valor;
-    novaLinha = "<tr><td>" + novoProd + "</td><td>"+ "-R$" + valor +"</td><td>"+ today.toLocaleDateString() +"</td><td><input type='checkbox' class='delete-checkbox'></td></tr>";
+    // Aumenta 1 venda para controle
+    vendas++;
+
+    novaLinha = "<tr><td style='text-transform: uppercase;'>" + novoProd + "</td><td>"+ "-R$" + valor +"</td><td>"+ today.toLocaleDateString() +"</td><td><input type='checkbox' class='delete-checkbox'></td></tr>";
     document.getElementById("tabela-produtos").innerHTML += novaLinha;
     if (maiorDespesa<valor){
         maiorDespesa=valor;
     }
-    novoTotal = "<tr><th colspan='4'>TOTAL</th></tr><tr><th>Lucro:</th><td>"+ "<b>R$" + total.toFixed(2) + "</b></td></tr><tr><th>Maior venda:</th><td> <b>R$"+ maiorValor +"</b></td></tr><tr><th>Maior Despesa:</th><td><b>R$"+ maiorDespesa +"</b></td></tr>";
+    novoTotal = "<tr><th colspan='4'>TOTAL</th></tr><tr><tr><th>Vendas:</th><td><b>"+ vendas +"</b></td><tr><th>Lucro:</th><td id='lucro123'>"+ "<b>R$ " + total.toFixed(2) + "</b></td></tr><tr><th>Maior venda:</th><td> <b>R$"+ maiorValor +"</b></td></tr><tr><th>Maior Despesa:</th><td><b>R$"+ maiorDespesa +"</b></td></tr>";
     document.getElementById("total").innerHTML = novoTotal;
 
     //Limpa os inputs
@@ -69,16 +73,19 @@ function deletarVenda(){
         if (checkboxes[i].checked) {
             // Obtém a linha (tr) à qual a checkbox pertence
             var row = checkboxes[i].closest('tr');
+            var valorDaLinha = parseFloat(row.cells[1].textContent.replace(/[^\d.-]/g, ''));
             // Remove a linha da tabela
             row.parentNode.removeChild(row);
-            var valorDaLinha = parseFloat(row.cells[1].textContent.replace(/[^\d.-]/g, ''));
-            let newValor = total-valorDaLinha;
+            
+            //Diminui valor do produto excluido do total
             total-= valorDaLinha;
+            // Diminui 1 venda
             vendas--;
-            novoTotal = "<tr><th colspan='4'>TOTAL</th></tr><tr><tr><th>Vendas:</th><td><b>"+ vendas +"</b></td><tr><th>Lucro:</th><td id='lucro123'>"+ "<b>R$ " + newValor + "</b></td></tr><tr><th>Maior venda:</th><td> <b>R$"+ maiorValor +"</b></td></tr><tr><th>Maior Despesa:</th><td><b>R$"+ maiorDespesa +"</b></td></tr>";
+            // Atualiza o total
+            novoTotal = "<tr><th colspan='4'>TOTAL</th></tr><tr><tr><th>Vendas:</th><td><b>"+ vendas +"</b></td><tr><th>Lucro:</th><td id='lucro123'>"+ "<b>R$ " + total.toFixed(2) + "</b></td></tr><tr><th>Maior venda:</th><td> <b>R$"+ maiorValor +"</b></td></tr><tr><th>Maior Despesa:</th><td><b>R$"+ maiorDespesa +"</b></td></tr>";
             document.getElementById("total").innerHTML = novoTotal;
         
-    }
+        }
     }
 }
 function salvarTabelas() {
@@ -98,8 +105,6 @@ function salvarTabelas() {
 }
 
 function carregarTabelas() {
-    
-    
     // Obter as HTMLs salvas no localStorage
     var tabelaProdutosHTML = localStorage.getItem('tabelaProdutos');
     var tabelaTotalHTML = localStorage.getItem('tabelaTotal');
@@ -109,5 +114,5 @@ function carregarTabelas() {
         // Atualizar as tabelas com as HTMLs salvas
         document.getElementById("tabela-produtos").outerHTML = tabelaProdutosHTML;
         document.getElementById("total").outerHTML = tabelaTotalHTML;
- }  
+    }  
 }
